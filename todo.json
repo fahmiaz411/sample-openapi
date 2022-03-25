@@ -34,12 +34,271 @@
   },
   "paths": {
     "/todolist": {
-      "get": {},
-      "post": {}
+      "get": {
+        "summary": "Get all todolist",
+        "description": "Get all active todolist by default",
+        "parameters": [
+          {
+            "name": "include_done",
+            "in": "query",
+            "required": false,
+            "description": "Is include done todolist",
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "nullable": true
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Filter todolist by name",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "examples": {
+              "java": {
+                "value": "Java",
+                "description": "Example name java"
+              },
+              "php": {
+                "value": "PHP",
+                "description": "Example name PHP"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get all todolist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "Example success get all todolist",
+                    "value": [
+                      {
+                        "id": "1",
+                        "name": "java",
+                        "priority": 3,
+                        "tags": ["Java", "Programming"]
+                      },
+                      {
+                        "id": "2",
+                        "name": "php",
+                        "priority": 5,
+                        "tags": ["PHP", "Programming"]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create new todolist",
+        "description": "Create new todolist to database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "format": "int32",
+                    "required": true,
+                    "default": 1
+                  },
+                  "tags": {
+                    "type": "array",
+                    "required": false,
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "required": true
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "java": {
+                  "value": {
+                    "name": "Java",
+                    "priority": 3,
+                    "tags": ["Java", "Programming"]
+                  }
+                },
+                "php": {
+                  "value": {
+                    "name": "PHP",
+                    "priority": 5,
+                    "tags": ["PHP", "Programming"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get all todolist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "priority": {
+                        "type": "number",
+                        "format": "int32"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "java": {
+                    "description": "Create Java",
+                    "value": {
+                      "status": "success",
+                      "data": {
+                        "id": "1",
+                        "name": "java",
+                        "priority": 3,
+                        "tags": ["Java", "Programming"]
+                      }
+                    }
+                  },
+                  "php": {
+                    "description": "Create PHP",
+                    "value": {
+                      "status": "success",
+                      "data": {
+                        "id": "2",
+                        "name": "php",
+                        "priority": 5,
+                        "tags": ["PHP", "Programming"]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/todolist/{todoId}": {
-      "put": {},
-      "delete": {}
+      "put": {
+        "summary": "Update existing todolist",
+        "description": "Update existing todolist in database",
+        "parameters": [
+          {
+            "name": "todoId",
+            "in": "path",
+            "required": true,
+            "description": "Todolist for update",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "required": true
+                  },
+                  "priority": {
+                    "type": "integer",
+                    "format": "int32",
+                    "required": true,
+                    "default": 1
+                  },
+                  "tags": {
+                    "type": "array",
+                    "required": false,
+                    "minItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "required": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete existing todolist",
+        "description": "Delete existing todolist in database",
+        "responses": {}
+      }
     }
   }
 }
