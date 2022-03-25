@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "API Title",
+    "version": "1.0",
+    "description": "OpenAPI for todolist Restful API",
+    "termsOfService": "https://www.programmerzamannow.com",
+    "contact": {
+      "name": "fahmi",
+      "email": "fahmi@gmail.com",
+      "url": "https://www.programmerzamannow.com"
+    },
+    "license": {
+      "name": "APACHE 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.kursusteknologi.com/api/v1",
+      "description": "Todolist Restful API",
+      "variables": {
+        "environment": {
+          "default": "server",
+          "description": "Server environment",
+          "enum": ["server", "kelas", "admin"]
+        }
+      }
+    }
+  ],
+  "externalDocs": {
+    "description": "Youtube",
+    "url": "youtube.com"
+  },
+  "paths": {
+    "/todolist": {
+      "get": {},
+      "post": {}
+    },
+    "/todolist/{todoId}": {
+      "put": {},
+      "delete": {}
+    }
+  }
+}
